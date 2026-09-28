@@ -1,0 +1,34 @@
+<!--
+  templates/components/note.html — MOLDE DE UM CARD
+  O render_index() preenche este molde uma vez para CADA nota, com .format(...)
+  Buracos: title, details, id, favorite_icon
+  README_1A.md → Parte 1 → "Templates e .format()"
+  (Sem chaves nos comentários: este arquivo passa pelo .format())
+-->
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">{title}</h3>
+    <div class="card-actions">
+      <!-- EDITAR: link = GET /edit/ID → função edit (metade GET)
+           README → Parte 4 — Editar anotações -->
+      <a href="/edit/{id}" class="card-edit" title="Editar">
+        <img src="img/edit.png" alt="Editar"/>
+      </a>
+      <!-- FAVORITAR (A+): link = GET /fav/ID → função favorite
+           A imagem também é um buraco: fav.png ou notfav.png, escolhido pelo Python (ternário)
+           README → Parte 6 → "1. Favoritar" -->
+      <a href="/fav/{id}" class="card-fav" title="Favoritar">
+        <img src="img/{favorite_icon}" alt="Favoritar"/>
+      </a>
+      <!-- APAGAR: link = GET /delete/ID → confirm_delete (página "tem certeza?")
+           O id vai na ROTA, não aparece na tela.
+           README → Parte 3 — Apagar anotações -->
+      <a href="/delete/{id}" class="card-delete" title="Apagar">
+        <img src="img/lixeira.png" alt="Apagar"/>
+      </a>
+    </div>
+  </div>
+  <div class="card-content">
+    <p>{details}</p>
+  </div>
+</div>

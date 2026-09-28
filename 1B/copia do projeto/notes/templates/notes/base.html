@@ -1,0 +1,49 @@
+{% load static %}
+{% comment %}
+  =============================================================================
+  notes/templates/notes/base.html — MOLDE COMUM DE TODAS AS PÁGINAS
+  head, CSS, barra do topo e JS ficam AQUI, uma vez só.
+  Cada página usa {% extends "notes/base.html" %} e preenche o block content.
+  Comentários de template Django: {# uma linha #} ou o bloco comment/endcomment.
+  (Comentário HTML normal NÃO esconde tags do Django: elas rodariam mesmo assim.)
+  README_1B.md → Parte 1 → "5. Templates"
+  =============================================================================
+{% endcomment %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Get-it</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"
+      integrity="sha512-NmLkDIU1C/C88wi324HBc+S2kLhi08PN5GDeUVVVC/BVt/9Izdsc9SVeVfA1UZbY3sHUlDSyRXhCzHfr6hmPPw=="
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&family=Permanent+Marker&display=swap"
+      rel="stylesheet"
+    />
+    {# static gera /static/notes/getit.css (arquivo em notes/static/notes/). Precisa do load static no topo #}
+    <link rel="stylesheet" href="{% static 'notes/getit.css' %}" />
+  </head>
+
+  <body>
+    <div class="appbar">
+      <img src="{% static 'notes/img/logo-getit.png' %}" class="logo" />
+      <span class="subtitle">Como o Post-it, mas com outro verbo</span>
+      {# url 'tags' → link pelo name do path → /tags/  (README_1B → Parte 2) #}
+      <a href="{% url 'tags' %}" style="margin-left:auto; color:#2c2c2c;">Tags</a>
+    </div>
+
+    <main class="container">
+      {# BURACO: cada página que dá extends coloca o conteúdo dela aqui #}
+      {% block content %} {% endblock %}
+    </main>
+
+    <script src="{% static 'notes/getit.js' %}"></script>
+  </body>
+</html>

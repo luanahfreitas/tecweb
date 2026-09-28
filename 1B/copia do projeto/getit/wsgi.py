@@ -1,0 +1,18 @@
+# getit/wsgi.py — porta de entrada para servidores de produção (gunicorn getit.wsgi) (🔹 só reconhecer)
+# 📖 README_1B.md → Parte 4 (Deploy)
+"""
+WSGI config for getit project.
+
+It exposes the WSGI callable as a module-level variable named ``application``.
+
+For more information on this file, see
+https://docs.djangoproject.com/en/6.1/howto/deployment/wsgi/
+"""
+
+import os
+
+from django.core.wsgi import get_wsgi_application
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "getit.settings")
+
+application = get_wsgi_application()

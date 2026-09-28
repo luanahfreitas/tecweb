@@ -1,0 +1,77 @@
+<!doctype html>
+<!--
+  ===========================================================================
+  templates/index.html — PÁGINA PRINCIPAL (lista de notas + formulário)
+  Preenchido pelo render_index() no views.py com .format(notes=..., error=...)
+  Buracos: error (mensagem da validação) e notes (todos os cards)
+  README_1A.md → Parte 1 → "Templates e .format()"
+
+  ATENÇÃO: este arquivo passa pelo .format() do Python.
+  Toda chave neste arquivo é tratada como buraco. CSS com chaves aqui
+  dentro precisa de chaves DOBRADAS, senão dá erro. (README → Parte 1 → Pegadinhas)
+  Por isso estes comentários não usam chaves.
+  ===========================================================================
+-->
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Get-it</title>
+    <!-- CSS externo (reset + fontes): vem de OUTROS servidores, não do nosso -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"
+      integrity="sha512-NmLkDIU1C/C88wi324HBc+S2kLhi08PN5GDeUVVVC/BVt/9Izdsc9SVeVfA1UZbY3sHUlDSyRXhCzHfr6hmPPw=="
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&family=Permanent+Marker&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Nosso CSS: o navegador faz GET /getit.css → cai no is_file() do servidor.
+         Aqui funciona sem barra porque a home é a rota "/".
+         Em página com rota com barra (/edit/3) tem que ser "/getit.css". (README → Parte 0 → Pegadinhas) -->
+    <link rel="stylesheet" href="getit.css" />
+    
+  </head>
+  <body>
+    <div class="appbar">
+      <img src="img/logo-getit.png" class="logo" />
+      <span class="subtitle">Como o Post-it, mas com outro verbo</span>
+    </div>
+
+    <main class="container">
+      <!-- FORMULÁRIO DE CRIAR NOTA
+           method="post" → envia POST
+           SEM action → envia para a rota atual, ou seja, POST /  → função index no views.py
+           README → Parte 3 → "Conceitos-chave" -->
+      <form class="form-card" method="post">
+        <!-- Buraco da mensagem de erro da validação (A+). Vazio quando não tem erro.
+             README → Parte 6 → "3. Validação do formulário" -->
+        {error}
+        <!-- name="titulo" vira a chave params['titulo'] no Python
+             README → Parte 3 → "De onde vem o params?" -->
+        <input
+          class="form-card-title"
+          type="text"
+          name="titulo"
+          placeholder="Título"
+        />
+        <!-- name="detalhes" vira params['detalhes'].
+             class="autoresize" → o getit.js aumenta a altura enquanto digita -->
+        <textarea
+          class="autoresize"
+          name="detalhes"
+          placeholder="Digite o conteúdo..."
+        ></textarea>
+        <button class="btn" type="submit">Criar</button>
+      </form>
+      <div class="card-container">
+        <!-- Buraco onde entram TODOS os cards (cada um feito a partir de components/note.html) -->
+        {notes}
+      </div>
+    </main>
+    <!-- getit.js: autoresize do textarea + cor/rotação aleatória dos cards. Só reconhecer. -->
+    <script type="text/javascript" src="getit.js"></script>
+  </body>
+</html>

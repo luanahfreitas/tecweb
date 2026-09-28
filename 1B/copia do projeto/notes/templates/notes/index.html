@@ -1,0 +1,54 @@
+{% extends "notes/base.html" %}
+{% load static %}
+{% comment %}
+  =============================================================================
+  notes/templates/notes/index.html — HOME (lista de notas + formulário de criar)
+  Recebe do render: notes (lista de Note)
+  extends TEM que ser a 1ª linha. load static é necessário em cada template que usa static.
+  README_1B.md → Parte 1 (CRUD) e Parte 2 (tags)
+  =============================================================================
+{% endcomment %}
+
+{% block content %}
+{# sem action → POST vai para a própria rota / → view index (metade POST) #}
+<form class="form-card" method="post">
+  {# OBRIGATÓRIO em todo form POST. Sem ele: erro 403 Forbidden #}
+  {% csrf_token %}
+  {# name="titulo" → request.POST.get('titulo') na view #}
+  <input class="form-card-title" type="text" id="titulo" name="titulo" placeholder="Título" />
+  <textarea class="autoresize" id="detalhes" name="detalhes" placeholder="Detalhes"></textarea>
+  {# tags separadas por vírgula → view faz split(',') + get_or_create (README_1B → Parte 2) #}
+  <input type="text" name="tags" placeholder="Tags (separadas por vírgula, ex: tag1, tag2)" style="border:none; outline:none; font-family:'Roboto',sans-serif; font-size:14px; color:#4c4c4c; margin-bottom:16px; padding:0;"/>
+  <button class="btn" type="submit">Salvar</button>
+</form>
+
+<div class="card-container">
+  {# notes = chave do dicionário do render. Loop direto no HTML (no 1A era list comprehension + join) #}
+  {% for note in notes %}
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title">{{ note.title }}</h3>
+      <div class="card-actions">
+        {# url 'edit' note.id → /edit/3/  (name do path + argumento) #}
+        <a class="card-edit" href="{% url 'edit' note.id %}">
+        <img src="{% static 'notes/img/edit.png' %}" alt="Editar" />
+        </a>
+        {# link = GET → view delete apaga direto (sem confirmação) #}
+        <a class="card-delete" href="{% url 'delete' note.id %}">
+        <img src="{% static 'notes/img/lixeira.png' %}" alt="Excluir" />
+        </a>
+    </div>
+    </div>
+    <div class="card-content">
+    <p>{{ note.content }}</p>
+    </div>
+    <div class="tag-badges">
+        {# many-to-many: note.tags.all SEM parênteses no template (no Python é .all()) #}
+        {% for tag in note.tags.all %}
+        <a href="{% url 'tag_detail' tag.id %}" class="tag-badge">#{{ tag.name }}</a>
+        {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,62 @@
+<!doctype html>
+<!--
+  ===========================================================================
+  templates/edit.html — PÁGINA DE EDIÇÃO (tarefa 4)
+  Preenchido pela função edit (metade GET) com .format(id=..., title=..., content=...)
+  README_1A.md → Parte 4 — Editar anotações
+  (Sem chaves nos comentários: este arquivo passa pelo .format())
+  ===========================================================================
+-->
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Get-it - Editar</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"
+      integrity="sha512-NmLkDIU1C/C88wi324HBc+S2kLhi08PN5GDeUVVVC/BVt/9Izdsc9SVeVfA1UZbY3sHUlDSyRXhCzHfr6hmPPw=="
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&family=Permanent+Marker&display=swap"
+      rel="stylesheet"
+    />
+    <!-- COM BARRA: a rota é /edit/3. Sem a barra o navegador pediria /edit/getit.css → 404 → sem estilo.
+         README → Parte 0 → Pegadinhas -->
+    <link rel="stylesheet" href="/getit.css" />
+  </head>
+
+  <body>
+    <div class="appbar">
+      <img src="/img/logo-getit.png" class="logo" />
+      <span class="subtitle">Como o Post-it, mas com outro verbo</span>
+    </div>
+
+    <main class="container">
+      <!-- method="post" + action="/edit/ID" → clicar em Salvar gera POST /edit/ID
+           → função edit (metade POST) → db.update → 303 para a home -->
+      <form class="edit-card" method="post" action="/edit/{id}">
+        <!-- INPUT: texto inicial vai no atributo value.
+             name="titulo" vira params['titulo'] no Python (não bateu → KeyError) -->
+        <input
+          class="edit-card-title"
+          type="text"
+          name="titulo"
+          value="{title}"
+        />
+        <!-- TEXTAREA: texto inicial vai ENTRE as tags (textarea não tem value).
+             name="detalhes" vira params['detalhes'] -->
+        <textarea class="edit-card-content" name="detalhes">{content}</textarea>
+
+        <div class="edit-card-actions">
+          <!-- Cancelar = só um link para a home (GET /), nada é salvo -->
+          <a class="btn btn-secondary" href="/">Cancelar</a>
+          <!-- Salvar = envia o formulário (POST) -->
+          <button class="btn" type="submit">Salvar</button>
+        </div>
+      </form>
+    </main>
+  </body>
+</html>

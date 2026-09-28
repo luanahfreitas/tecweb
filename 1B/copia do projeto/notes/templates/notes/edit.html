@@ -1,0 +1,27 @@
+{% extends "notes/base.html" %}
+{% load static %}
+{% comment %}
+  =============================================================================
+  notes/templates/notes/edit.html — FORMULÁRIO DE EDIÇÃO
+  Recebe do render: note (a nota a editar)
+  README_1B.md → Parte 1 → "edit.html" e Parte 2 (tags)
+  =============================================================================
+{% endcomment %}
+
+{% block content %}
+{# sem action → POST vai para a própria rota /edit/3/ → view edit (metade POST) #}
+<form class="edit-card" method="post">
+  {% csrf_token %}
+  {# input: texto inicial no atributo value #}
+  <input class="edit-card-title" type="text" id="titulo" name="titulo" value="{{ note.title }}" />
+  {# textarea: texto inicial ENTRE as tags (textarea não tem value) #}
+  <textarea class="edit-card-content" id="detalhes" name="detalhes">{{ note.content }}</textarea>
+  {# tags como "tag1, tag2": forloop.last é True na última volta → sem vírgula depois da última #}
+  <input type="text" name="tags" placeholder="Tags (separadas por vírgula)" value="{% for tag in note.tags.all %}{{ tag.name }}{% if not forloop.last %}, {% endif %}{% endfor %}" style="border:none; outline:none; font-family:'Roboto',sans-serif; font-size:14px; color:#4c4c4c; margin-bottom:16px; padding:0;"/>  
+  <div class="edit-card-actions">
+    {# Voltar = link para a home (GET), nada é salvo #}
+    <a class="btn btn-secondary" href="{% url 'index' %}">Voltar</a>
+    <button class="btn" type="submit">Salvar</button>
+  </div>
+</form>
+{% endblock %}

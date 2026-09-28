@@ -1,0 +1,57 @@
+<!doctype html>
+<!--
+  ===========================================================================
+  templates/delete.html — PÁGINA "TEM CERTEZA?" (conceito A)
+  Preenchido pela função confirm_delete com .format(id=..., title=..., content=...)
+  README_1A.md → Parte 3 — Apagar anotações (Versão 1)
+  (Sem chaves nos comentários: este arquivo passa pelo .format())
+  ===========================================================================
+-->
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Get-it - Apagar anotação</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"
+      integrity="sha512-NmLkDIU1C/C88wi324HBc+S2kLhi08PN5GDeUVVVC/BVt/9Izdsc9SVeVfA1UZbY3sHUlDSyRXhCzHfr6hmPPw=="
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&family=Permanent+Marker&display=swap"
+      rel="stylesheet"
+    />
+    <!-- COM BARRA: a rota é /delete/3 (README → Parte 0 → Pegadinhas) -->
+    <link rel="stylesheet" href="/getit.css" />
+  </head>
+
+  <body>
+    <div class="appbar">
+      <img src="/img/logo-getit.png" class="logo" />
+      <span class="subtitle">Como o Post-it, mas com outro verbo</span>
+    </div>
+
+    <main class="container">
+      <div class="confirm-card">
+        <!-- Mostra a nota que vai ser apagada (pedido do conceito A) -->
+        <h3 class="confirm-card-title">{title}</h3>
+        <p class="confirm-card-content">{content}</p>
+        <p class="confirm-card-question">Tem certeza que deseja apagar essa anotação?</p>
+
+        <div class="confirm-card-actions">
+          <!-- NÃO = link para a home (GET /) → nada é apagado -->
+          <a class="btn btn-secondary" href="/">Não</a>
+          <!-- SIM = formulário só com um botão.
+               method="post" + action="/delete/ID" → POST /delete/ID
+               → servidor.py vê que é POST → função delete → db.delete → 303 para a home
+               MESMA rota da lixeira, mas agora é POST (a lixeira era GET) -->
+          <form method="post" action="/delete/{id}">
+            <button class="btn" type="submit">Sim</button>
+          </form>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

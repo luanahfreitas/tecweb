@@ -1,0 +1,6 @@
+# Arquivos que o git ignora
+# cache do Python
+__pycache__/
+*.pyc
+# banco de dados local (cada um tem o seu; é recriado ao rodar o servidor)
+*.db
