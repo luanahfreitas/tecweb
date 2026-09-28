@@ -1,0 +1,37 @@
+{% load static %}
+{# [SIMULADO 3.2 + 3.3 + 3.5] página de perguntas (form + dropdown + lista). Sem CSS: o enunciado não pede #}
+{# O load static não é usado aqui (nenhum static no arquivo), mas não atrapalha #}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Perguntas</title>
+  </head>
+
+  <body>
+    <form class="form-card" method="post">
+        {# ✅ obrigatório em form POST (sem ele: 403) #}
+        {% csrf_token %}
+        {# ✅ name="enunciado" = request.POST.get('enunciado') · name="resposta" = request.POST.get('resposta') #}
+        <input type="text" id="enunciado" name="enunciado" placeholder="enunciado"/>
+        <input type="text" id="resposta" name="resposta" placeholder="Verdadeiro ou Falso" />
+        {# [3.5] ✅ dropdown: name="categoria" = request.POST.get('categoria') #}
+        {# categorias = chave do render · value = o que é ENVIADO (o id) · texto entre as tags = o que aparece #}
+        <select name="categoria">
+            {% for categoria in categorias %}
+                {# ⚠ Funcionava sem aspas (value=1), mas o padrão é COM aspas: value="{{ categoria.id }}" #}
+                <option value="{{ categoria.id }}">{{ categoria.nome }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Criar</button>
+    </form>
+
+    {# [3.3] ✅ lista em ul abaixo do form, com enunciado e resposta (True/False) #}
+    <ul>
+        {% for pergunta in perguntas %}
+            <li>{{ pergunta.enunciado }} - {{ pergunta.resposta_correta }}</li>
+        {% endfor %}
+    </ul>
+  </body>
+</html>

@@ -22,8 +22,6 @@
 
 ## Repositório da prova
 
-**`BarbaraTieko/tecweb-26-2-avaliacao-intermediaria-luanahf`** (privado)
-
 ```
 tecweb-26-2-avaliacao-intermediaria-luanahf/   ← raiz: aqui ficam o .git e os commits
 ├── projeto 1A/      ← código do 1A (tem o banco.db CERTO dentro)
@@ -46,8 +44,6 @@ tecweb-26-2-avaliacao-intermediaria-luanahf/   ← raiz: aqui ficam o .git e os 
 ---
 
 ## Projeto 1A — Get-it na mão
-
-📖 README_1A.md
 
 ```bash
 cd "projeto 1A"              # ASPAS por causa do espaço no nome
@@ -73,8 +69,6 @@ python servidor.py
 ---
 
 ## Projeto 1B — Django
-
-📖 README_1B.md
 
 ```bash
 cd "projeto 1B"              # ASPAS por causa do espaço no nome

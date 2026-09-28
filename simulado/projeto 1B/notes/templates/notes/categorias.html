@@ -1,0 +1,27 @@
+{% load static %}
+{# [SIMULADO 3.4] ✅ form para cadastrar categoria + lista abaixo #}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {# ⚠ título da aba copiado do perguntas.html; o ideal é Categorias #}
+    <title>Categorias</title>
+  </head>
+
+  <body>
+    <form class="form-card" method="post">
+        {% csrf_token %}
+        {# ✅ name="nome" = request.POST.get('nome') (antes estava name="enunciado", copiado do outro form) #}
+        <input type="text" id="nome" name="nome" placeholder="Categoria"/>
+        <button type="submit">Criar</button>
+    </form>
+
+    <ul>
+        {% for categoria in categorias %}
+            {# ✅ DUAS chaves (antes estava com uma só e aparecia o texto na tela) #}
+            <li>{{ categoria.nome }}</li>
+        {% endfor %}
+    </ul>
+  </body>
+</html>

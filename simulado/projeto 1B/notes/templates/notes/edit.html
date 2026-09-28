@@ -1,0 +1,15 @@
+{% extends "notes/base.html" %}
+{% load static %}
+
+{% block content %}
+<form class="edit-card" method="post">
+  {% csrf_token %}
+  <input class="edit-card-title" type="text" id="titulo" name="titulo" value="{{ note.title }}" />
+  <textarea class="edit-card-content" id="detalhes" name="detalhes">{{ note.content }}</textarea>
+  <input type="text" name="tags" placeholder="Tags (separadas por vírgula)" value="{% for tag in note.tags.all %}{{ tag.name }}{% if not forloop.last %}, {% endif %}{% endfor %}" style="border:none; outline:none; font-family:'Roboto',sans-serif; font-size:14px; color:#4c4c4c; margin-bottom:16px; padding:0;"/>  
+  <div class="edit-card-actions">
+    <a class="btn btn-secondary" href="{% url 'index' %}">Voltar</a>
+    <button class="btn" type="submit">Salvar</button>
+  </div>
+</form>
+{% endblock %}
